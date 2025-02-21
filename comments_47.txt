@@ -1,0 +1,12 @@
+
+Suggested Improvements for the Star Schema
+
+The suggested star schema is a solid foundation but has a few imperfections that could impact performance and usability.
+For instance, dimensions like Dim_Product and Dim_Location are denormalized, storing hierarchical data such as ProductSubCategoryName and ProductTopCategoryName, which introduces redundancy and increases table size.
+Normalizing these dimensions into snowflake schemas by splitting hierarchies would reduce redundancy and improve query performance. 
+Additionally, the use of natural keys (e.g., ProductKey, LocationKey) instead of surrogate keys ties the warehouse to source system changes, making it prone to inconsistencies. 
+Introducing surrogate keys would decouple the data warehouse from source changes and improve data integrity.
+
+Furthermore, Columns like FullName in Dim_Customer may also have high cardinality, increasing memory usage and query complexity, which can be mitigated by avoiding such attributes in aggregations.
+Adding indexes on foreign key columns in the fact table and ensuring the granularity of Fact_InternetSales meets reporting requirements (e.g., detailed shipping information) would further enhance performance and usability.
+These changes would make the schema more robust, flexible, and scalable for business analytics.
